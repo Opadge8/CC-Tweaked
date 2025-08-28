@@ -108,32 +108,57 @@ end
 
 -- Home screen / clickable menu
 local function home()
-    local w, h = term.getSize()
+    setTheme()
+    local w,h = term.getSize()
+    local sel = 1
+    local appStartY = 6 -- where the apps list starts
+
+    local function drawMenu()
+        setTheme()
+        box(1,1,w,h,"PersonalOS — "..(cfg.user or "player"))
+        center(3, "Use ↑/↓ or touch screen, Enter/Click to open, Q to quit to shell")
+        for i,app in ipairs(apps) do
+            term.setCursorPos(4, appStartY + i - 1)
+            if i == sel then term.setTextColor(theme.acc) else term.setTextColor(theme.fg) end
+            term.write((i==sel and "> " or "  ")..app.name)
+        end
+    end
+
+    drawMenu()
+
     while true do
-        drawBackground() -- <- draw the background first
-        center(1, "Start Menu")
-        center(3, "Tap an app to start")
-
-        local appPos = drawApps()
-
         local e, param1, param2 = os.pullEvent()
+        
         if e == "key" then
             local k = param1
-            if k == keys.up then sel = math.max(1, sel-1)
-            elseif k == keys.down then sel = math.min(#apps, sel+1)
-            elseif k == keys.enter then runApp(apps[sel].id) end
-        elseif e == "touch" or e == "mouse_click" then
-            local x, y = param2, param3 -- coordinates of touch
-            -- simple mapping: check which app line was clicked
-            local appYStart = 6
+            if k == keys.up then
+                sel = math.max(1, sel-1)
+                drawMenu()
+            elseif k == keys.down then
+                sel = math.min(#apps, sel+1)
+                drawMenu()
+            elseif k == keys.enter then
+                runApp(apps[sel].id)
+                drawMenu()
+            elseif k == keys.q then
+                break
+            end
+
+        elseif e == "touch" then
+            local x, y = param1, param2
             for i, app in ipairs(apps) do
-                if y == appYStart + i then
+                if y == appStartY + i - 1 then
+                    sel = i  -- highlight the touched app
+                    drawMenu()
+                    sleep(0.1) -- tiny delay so user sees the highlight
                     runApp(app.id)
+                    drawMenu()
                 end
             end
         end
     end
 end
+
 
 
 -- Boot
