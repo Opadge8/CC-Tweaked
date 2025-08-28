@@ -95,7 +95,7 @@ local function drawTime()
     term.setCursorPos(1, 1)
     term.write(textutils.formatTime(os.time()))
     term.setCursorPos(15, 1)
-    term.write(textutils.formatTime(os.time("local")))
+    term.write(textutils.formatTime(os.time("local")-5))
 end
 
 -- Get app positions for clickable menu
