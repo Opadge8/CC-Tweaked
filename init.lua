@@ -121,7 +121,7 @@ local function home()
 
     local function drawMenu()
         setTheme()
-        center(1, "Start Menu")
+        center(2, "Start Menu")
         center(3, "Tap to launch app")
         drawTime()
         for i,app in ipairs(apps) do
