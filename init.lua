@@ -157,7 +157,9 @@ local function home()
                     sel = i  -- highlight the touched app
                     drawMenu()
                     sleep(0.1) -- tiny delay so user sees the highlight
-                    runApp(app.id)
+                    if apps[sel] then
+                        runApp(apps[sel].id)
+                    end
                     drawMenu()
                 end
             end
