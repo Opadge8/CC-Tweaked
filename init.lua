@@ -109,7 +109,7 @@ local function home()
     local w, h = term.getSize()
     while true do
         drawBackground() -- <- draw the background first
-        box(1,1,w,h,"PersonalOS - Welcome"..(cfg.user or "player"))
+        center(1, "Start Menu")
         center(3, "Tap an app to open, or Q to quit")
 
         local appPos = drawApps()
