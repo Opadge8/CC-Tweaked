@@ -57,6 +57,7 @@ for repoPath, localPath in pairs(files) do
     end
 end
  
+
 print("\nUpdate complete! Running PersonalOS...\n")
 sleep(1)
 shell.run("/personalOS/init.lua")
