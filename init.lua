@@ -73,8 +73,7 @@ local function home()
         end
         local e,k = os.pullEvent("key")
         if k==keys.up then sel = math.max(1, sel-1)
-        elseif k==keys.down then sel = math.min(#apps, sel+1)
-        --elseif k==keys.enter then pass
+        elseif k==keys.down then sel = math.min(#apps, sel+1)--elseif k==keys.enter then pass
         elseif k==keys.q then break
         end
     end
