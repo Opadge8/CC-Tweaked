@@ -115,8 +115,8 @@ local function home()
 
     local function drawMenu()
         setTheme()
-        box(1,1,w,h,"Start Menu")
-        center(3, "Click to launch app")
+        box(1,1,w,h,"PersonalOS — "..(cfg.user or "player"))
+        center(3, "Use ↑/↓ or touch screen, Enter/Click to open, Q to quit to shell")
         for i,app in ipairs(apps) do
             term.setCursorPos(4, appStartY + i - 1)
             if i == sel then term.setTextColor(theme.acc) else term.setTextColor(theme.fg) end
@@ -127,10 +127,10 @@ local function home()
     drawMenu()
 
     while true do
-        local e, param1, param2 = os.pullEvent()
+        local e, p1, p2, p3 = os.pullEvent()
         
         if e == "key" then
-            local k = param1
+            local k = p1
             if k == keys.up then
                 sel = math.max(1, sel-1)
                 drawMenu()
@@ -145,7 +145,7 @@ local function home()
             end
 
         elseif e == "touch" then
-            local x, y = param1, param2
+            local side, x, y = p1, p2, p3
             for i, app in ipairs(apps) do
                 if y == appStartY + i - 1 then
                     sel = i  -- highlight the touched app
@@ -158,6 +158,7 @@ local function home()
         end
     end
 end
+
 
 
 
