@@ -1,7 +1,7 @@
 -- /personalOS/updater.lua
  
 -- CONFIG: set your GitHub repo info
-local githubUser   = "user"       -- your GitHub username
+local githubUser   = "Opadge8"       -- your GitHub username
 local githubRepo   = "CC-Tweaked"           -- repo name
 local branch       = "main"           -- branch name
  
