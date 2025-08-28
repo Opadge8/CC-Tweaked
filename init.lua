@@ -94,7 +94,7 @@ end
 local function drawTime()
     term.setCursorPos(1, 1)
     term.write(textutils.formatTime(os.time()))
-    term.setCursorPos(1, 15)
+    term.setCursorPos(15, 1)
     term.write(textutils.formatTime(os.time("local")))
 end
 
