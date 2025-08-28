@@ -45,35 +45,6 @@ local function center(y, s)
     term.write(s)
 end
 
--- Run an app safely using dofile
-local function runApp(id)
-    if id=="__shutdown" then os.shutdown(); return end
-    if id=="__reboot" then os.reboot(); return end
-
-    local path = "/personalOS/apps/"..id..".lua"
-    if not fs.exists(path) then
-        term.setTextColor(colors.red)
-        print("App not found: "..id)
-        print("\nPress any key to return...")
-        os.pullEvent("key")
-        return
-    end
-
-    term.setBackgroundColor(theme.bg)
-    term.setTextColor(theme.fg)
-    term.clear()
-    term.setCursorPos(1,1)
-
-    local ok, err = pcall(dofile, path)
-    if not ok then
-        term.setTextColor(colors.red)
-        print("App crashed: "..id)
-        print(err)
-        print("\nPress any key to return...")
-        os.pullEvent("key")
-    end
-end
-
 -- Menu apps
 local apps = {
     { name="Factory Tracker", id="factory" },
@@ -103,7 +74,7 @@ local function home()
         local e,k = os.pullEvent("key")
         if k==keys.up then sel = math.max(1, sel-1)
         elseif k==keys.down then sel = math.min(#apps, sel+1)
-        elseif k==keys.enter then runApp(apps[sel].id)
+        elseif k==keys.enter then pass
         elseif k==keys.q then break
         end
     end
