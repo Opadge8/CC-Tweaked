@@ -115,8 +115,8 @@ local function home()
 
     local function drawMenu()
         setTheme()
-        box(1,1,w,h,"PersonalOS — "..(cfg.user or "player"))
-        center(3, "Use ↑/↓ or touch screen, Enter/Click to open, Q to quit to shell")
+        center(1, "Start Menu")
+        center(3, "Tap to launch app")
         for i,app in ipairs(apps) do
             term.setCursorPos(4, appStartY + i - 1)
             if i == sel then term.setTextColor(theme.acc) else term.setTextColor(theme.fg) end
