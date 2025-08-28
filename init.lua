@@ -116,18 +116,20 @@ local function home()
 
         local appPos = drawApps()
 
-        while true do
-            local event, param1, param2 = os.pullEvent()
-            if event == "mouse_click" then
-                local x, y = param2, select(3, param1, param2)
-                for i, pos in ipairs(appPos) do
-                    if x >= pos.x1 and x <= pos.x2 and y >= pos.y1 and y <= pos.y2 then
-                        runApp(apps[i])
-                        break
-                    end
+        local e, param1, param2 = os.pullEvent()
+        if e == "key" then
+            local k = param1
+            if k == keys.up then sel = math.max(1, sel-1)
+            elseif k == keys.down then sel = math.min(#apps, sel+1)
+            elseif k == keys.enter then runApp(apps[sel].id) end
+        elseif e == "monitor_touch" or e == "mouse_click" then
+            local x, y = param2, param3 -- coordinates of touch
+            -- simple mapping: check which app line was clicked
+            local appYStart = 6
+            for i, app in ipairs(apps) do
+                if y == appYStart + i then
+                    runApp(app.id)
                 end
-            elseif event == "key" and param1 == keys.q then
-                return
             end
         end
     end
