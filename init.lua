@@ -112,7 +112,7 @@ local function home()
     while true do
         drawBackground() -- <- draw the background first
         center(1, "Start Menu")
-        center(3, "Tap an app to open, or Q to quit")
+        center(3, "Tap an app to start")
 
         local appPos = drawApps()
 
