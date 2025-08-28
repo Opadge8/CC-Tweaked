@@ -12,6 +12,27 @@ local function setTheme()
     term.setCursorPos(1,1)
 end
 
+-- Fill the screen with a simple background pattern
+local function drawBackground()
+    local w, h = term.getSize()
+    for y = 1, h do
+        term.setCursorPos(1, y)
+        for x = 1, w do
+            -- Example: alternating colors for a simple pattern
+            if (x + y) % 2 == 0 then
+                term.setBackgroundColor(colors.lightGray)
+            else
+                term.setBackgroundColor(colors.gray)
+            end
+            term.write(" ") -- write a space with background color
+        end
+    end
+    -- Reset text color
+    term.setBackgroundColor(theme.bg)
+    term.setTextColor(theme.fg)
+end
+
+
 -- Draw a simple box
 local function box(x, y, w, h, title)
     local oldTx, oldBg = term.getTextColor(), term.getBackgroundColor()
@@ -87,18 +108,16 @@ end
 local function home()
     local w, h = term.getSize()
     while true do
-        setTheme()
+        drawBackground() -- <- draw the background first
         box(1,1,w,h,"PersonalOS — "..(cfg.user or "player"))
         center(3, "Tap an app to open, or Q to quit")
 
-        -- Draw apps and get positions
         local appPos = drawApps()
 
         while true do
             local event, param1, param2 = os.pullEvent()
             if event == "mouse_click" then
-                local x, y = param2, select(3, param1, param2) -- x, y of click
-                -- Check if click is on an app
+                local x, y = param2, select(3, param1, param2)
                 for i, pos in ipairs(appPos) do
                     if x >= pos.x1 and x <= pos.x2 and y >= pos.y1 and y <= pos.y2 then
                         runApp(apps[i])
@@ -111,6 +130,7 @@ local function home()
         end
     end
 end
+
 
 -- Boot
 setTheme()
