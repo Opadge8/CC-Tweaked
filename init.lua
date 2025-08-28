@@ -67,6 +67,8 @@ local apps = {
     { name = "Files", id = "files" },
     { name = "Clock", id = "clock" },
     { name = "Notes", id = "notes" }
+    { name = "Restart", id = "reboot"}
+    { name = "Shutdown", id = "shutdown"}
 }
 
 -- Run app
