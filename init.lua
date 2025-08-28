@@ -66,7 +66,6 @@ end
 local apps = {
     { name = "Files", id = "files" },
     { name = "Clock", id = "clock" },
-    { name = "Notes", id = "notes" },
     { name = "Restart", id = "reboot"},
     { name = "Shutdown", id = "shutdown"}
 }
@@ -91,6 +90,12 @@ local function runApp(app)
         sleep(1.5)
     end
 end
+
+local function drawTime()
+    term.setCursorPos(1, 1)
+    term.write(textutils.formatTime(os.time()))
+    term.setCursorPos(1, 15)
+    term.write(textutils.formatTime(os.time(local)))
 
 -- Get app positions for clickable menu
 local function drawApps()
@@ -117,6 +122,7 @@ local function home()
         setTheme()
         center(1, "Start Menu")
         center(3, "Tap to launch app")
+        drawTime()
         for i,app in ipairs(apps) do
             term.setCursorPos(4, appStartY + i - 1)
             if i == sel then term.setTextColor(theme.acc) else term.setTextColor(theme.fg) end
