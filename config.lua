@@ -9,6 +9,6 @@ cfg.theme = {
 }
 
 -- User
-cfg.user = "player"
+cfg.user = "Owen"
 
 return cfg
