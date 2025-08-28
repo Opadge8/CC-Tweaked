@@ -122,7 +122,7 @@ local function home()
             if k == keys.up then sel = math.max(1, sel-1)
             elseif k == keys.down then sel = math.min(#apps, sel+1)
             elseif k == keys.enter then runApp(apps[sel].id) end
-        elseif e == "monitor_touch" or e == "mouse_click" then
+        elseif e == "touch" or e == "mouse_click" then
             local x, y = param2, param3 -- coordinates of touch
             -- simple mapping: check which app line was clicked
             local appYStart = 6
